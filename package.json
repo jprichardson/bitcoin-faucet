@@ -1,6 +1,6 @@
 {
   "name": "bitcoin-faucet",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Easy Bitcoin faucet to help with testing applications.",
   "main": "index.js",
   "scripts": {
