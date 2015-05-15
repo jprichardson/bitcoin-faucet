@@ -35,8 +35,9 @@ spend.blockchain = new Blockchain('https://test-insight.bitpay.com')
 
 var app = express()
 app.get('/', function (req, res) {
+  var pkg = require('./package')
   res.set('Content-Type', 'text/plain')
-  res.end('Please send funds back to: ' + ck.publicAddress)
+  res.end('bitcoin-faucet version: ' + pkg.version + '\n\nPlease send funds back to: ' + ck.publicAddress)
 })
 
 // only bitcoin testnet supported for now

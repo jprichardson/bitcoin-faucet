@@ -1,3 +1,7 @@
+0.x.y / 2015-xx-yy
+-------------------
+- added version output on `/`
+
 0.2.0 / 2015-05-15
 ------------------
 - moved from basic `http` to `express`
