@@ -14,7 +14,7 @@ var HDKey = require('hdkey')
 var spend = require('spend')
 
 var KEY_PATH = "m/44'/1'/0'/0/0" // first BIP44 Bitcoin Testnet External address
-var WALLET_FILE = process.env.FAUCET_FILE || path.join(process.env.HOME || process.env.USERPROFILE, '.bitcoin-faucet', 'wallet.json')
+var WALLET_FILE = process.env.FAUCET_WALLET || path.join(process.env.HOME || process.env.USERPROFILE, '.bitcoin-faucet', 'wallet.json')
 var PORT = process.env.FAUCET_PORT || 14004
 
 // initialize wallet

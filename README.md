@@ -29,7 +29,7 @@ outputs something like:
 You can configure the faucet with the following commands:
 
 - `FAUCET_PORT`: defaults to `14004`
-- `FAUCET_FILE`: defaults to `~/.bitcoin-faucet/wallet.json`
+- `FAUCET_WALLET`: defaults to `~/.bitcoin-faucet/wallet.json`
 
 
 ### Request Funds
