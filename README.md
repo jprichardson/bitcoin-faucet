@@ -56,6 +56,52 @@ While a `POST` probably would have been proper, a `GET` is super simple to imple
 easy to make requests in the browser.
 
 
+Run as Mac OS X Service
+-----------------------
+
+Running it as a Mac OS X service allows you to always access it while developing.
+
+Create the following file:
+
+**~/Library/LaunchAgents/com.coinbolt.bitcoin-faucet**
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.coinbolt.bitcoin-faucet</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/Users/jp/.nvm/v0.10.32/bin:$PATH</string>
+  </dict>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/jp/.nvm/v0.10.32/bin/bitcoin-faucet</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/jp/.bitcoin-faucet</string>
+  <key>StandardOutPath</key>
+  <string>/Users/jp/.bitcoin-faucet/bitcoin-faucet.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/jp/.bitcoin-faucet/bitcoin-faucet.log</string>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+</dict>
+</plist>
+```
+
+Configure the settings appropriate to your environment. Make sure that the `PATH`
+above is pointing to the location of `node`.
+
+Then run
+
+    launchctl load ~/Library/LaunchAgents/com.coinbolt.bitcoin-faucet.plist
+
 
 License
 -------
