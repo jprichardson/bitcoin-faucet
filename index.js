@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 
 var http = require('http')
-var qs = require('querystring')
 var path = require('path')
-var url = require('url')
 var bip39 = require('bip39')
 var Blockchain = require('cb-insight')
 var chalk = require('chalk')
 var coininfo = require('coininfo')
 var CoinKey = require('coinkey')
+var express = require('express')
 var fs = require('fs-extra')
 var HDKey = require('hdkey')
 var spend = require('spend')
@@ -34,40 +33,28 @@ var ck = new CoinKey(privateKey, coininfo.bitcoin.test)
 
 spend.blockchain = new Blockchain('https://test-insight.bitpay.com')
 
-var server = http.createServer(function (req, res) {
-  // default to HTML and HTTP OK
-  res.setHeader('Content-Type', 'text/plain')
-  res.statusCode = 200
-
-  var urlData = url.parse(req.url)
-  switch (req.method) {
-    case 'GET':
-      switch (urlData.pathname) {
-        case '/':
-          res.end('Please send funds back to: ' + ck.publicAddress)
-          break
-        case '/bitcoin/testnet/withdrawal':
-          var params = qs.parse(urlData.query)
-          if (!params.address) {
-            res.statusCode = 422
-            return res.end('You forgot to set the "address" parameter.')
-          }
-
-          // satoshis
-          var amount = parseInt(params.amount, 10) || 10000
-
-          // all responses will now be JSON
-          res.setHeader('Content-Type', 'application/json')
-
-          spend(ck.privateWif, params.address, amount, function (err, txId) {
-            if (err) return res.end(JSON.stringify({status: 'error', data: {message: err.message}}))
-            res.end(JSON.stringify({status: 'success', data: {txId: txId}}))
-          })
-          break
-      }
-      break
-  }
+var app = express()
+app.get('/', function (req, res) {
+  res.set('Content-Type', 'text/plain')
+  res.end('Please send funds back to: ' + ck.publicAddress)
 })
+
+// only bitcoin testnet supported for now
+app.get('/:coin/:network/withdrawal', function (req, res) {
+  if (!req.query.address) {
+    res.status(422).send({ status: 'error', data: { message: 'You forgot to set the "address" parameter.' } })
+  }
+
+  // satoshis
+  var amount = parseInt(req.query.amount, 10) || 10000
+
+  spend(ck.privateWif, req.query.address, amount, function (err, txId) {
+    if (err) return res.status(500).send({status: 'error', data: {message: err.message}})
+    res.send({status: 'success', data: {txId: txId}})
+  })
+})
+
+var server = http.createServer(app)
 
 server.listen(PORT, function (err) {
   if (err) console.error(err)
