@@ -2,7 +2,7 @@
 
 var http = require('http')
 var path = require('path')
-var Blockchain = require('cb-blockr')
+var Blockchain = require('cb-insight')
 var chalk = require('chalk')
 var express = require('express')
 var fs = require('fs')
@@ -27,7 +27,7 @@ if (privkey == undefined) {
 var keypair = bitcoin.ECPair.fromWIF(privkey)
 var address = keypair.getAddress().toString()
 
-var blockchain = new Blockchain('testnet')
+var blockchain = new Blockchain('https://test-insight.bitpay.com')
 
 var app = express()
 app.get('/', function (req, res) {
