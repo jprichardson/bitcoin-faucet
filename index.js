@@ -3,7 +3,7 @@
 var http = require('http')
 var path = require('path')
 var bip39 = require('bip39')
-var Blockchain = require('cb-insight')
+var Blockchain = require('cb-blockr')
 var chalk = require('chalk')
 var coininfo = require('coininfo')
 var CoinKey = require('coinkey')
@@ -38,7 +38,7 @@ var hdkey = HDKey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic)).derive(KEY_PATH
 var privateKey = hdkey.privateKey
 var ck = new CoinKey(privateKey, coininfo.bitcoin.test)
 
-spend.blockchain = new Blockchain('https://test-insight.bitpay.com')
+spend.blockchain = new Blockchain('testnet')
 
 var app = express()
 app.get('/', function (req, res) {
