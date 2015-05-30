@@ -72,19 +72,22 @@ function spend(keypair, toAddress, amount, callback) {
       tx.addOutput(address, change)
     }
 
-    utxos.forEach(function (unspent, i) {
+    utxos.forEach(function (unspent) {
       tx.addInput(unspent.txId, unspent.vout)
+    })
+
+    utxos.forEach(function (unspent, i) {
       tx.sign(i, keypair)
     })
 
     var txHex = tx.build().toHex()
     console.log(txHex)
-    blockchain.transactions.propagate(txHex, function (err) {
+    blockchain.transactions.propagate(txHex, function (err, result) {
       if (err) {
         console.log(err)
         return callback(err)
       }
-      callback(null, txId)
+      callback(null, result.txId)
     })
   })
 }
