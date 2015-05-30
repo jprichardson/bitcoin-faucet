@@ -13,7 +13,7 @@ var HDKey = require('hdkey')
 var spend = require('spend')
 
 var KEY_PATH = "m/44'/1'/0'/0/0" // first BIP44 Bitcoin Testnet External address
-var PORT = process.env.FAUCET_PORT || 14004
+var PORT = process.env.FAUCET_PORT || process.env.PORT || 14004
 
 var mnemonic = process.env.FAUCET_MNEMONIC
 
