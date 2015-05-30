@@ -4,7 +4,8 @@
   "description": "Easy Bitcoin faucet to help with testing applications.",
   "main": "index.js",
   "scripts": {
-    "test": "standard"
+    "test": "standard",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
