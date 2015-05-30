@@ -26,7 +26,7 @@
   "homepage": "https://github.com/jprichardson/bitcoin-faucet",
   "dependencies": {
     "bitcoinjs-lib": "git://github.com/bitcoinjs/bitcoinjs-lib",
-    "cb-blockr": "git://github.com/weilu/cb-blockr#4.0.0",
+    "cb-blockr": "^3.1.1",
     "chalk": "^1.0.0",
     "express": "^4.12.3"
   },
