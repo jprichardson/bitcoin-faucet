@@ -13,21 +13,28 @@ var HDKey = require('hdkey')
 var spend = require('spend')
 
 var KEY_PATH = "m/44'/1'/0'/0/0" // first BIP44 Bitcoin Testnet External address
-var WALLET_FILE = process.env.FAUCET_WALLET || path.join(process.env.HOME || process.env.USERPROFILE, '.bitcoin-faucet', 'wallet.json')
 var PORT = process.env.FAUCET_PORT || 14004
 
-// initialize wallet
-var data
-if (!fs.existsSync(WALLET_FILE)) {
-  data = {
-    mnemonic: bip39.generateMnemonic()
+var mnemonic = process.env.FAUCET_MNEMONIC
+
+if (mnemonic == undefined) {
+  var WALLET_FILE = process.env.FAUCET_WALLET || path.join(process.env.HOME || process.env.USERPROFILE, '.bitcoin-faucet', 'wallet.json')
+
+  // initialize wallet
+  var data
+  if (!fs.existsSync(WALLET_FILE)) {
+    data = {
+      mnemonic: bip39.generateMnemonic()
+    }
+    fs.outputJsonSync(WALLET_FILE, data)
+  } else {
+    data = fs.readJsonSync(WALLET_FILE)
   }
-  fs.outputJsonSync(WALLET_FILE, data)
-} else {
-  data = fs.readJsonSync(WALLET_FILE)
+
+  mnemonic = data.mnemonic
 }
 
-var hdkey = HDKey.fromMasterSeed(bip39.mnemonicToSeed(data.mnemonic)).derive(KEY_PATH)
+var hdkey = HDKey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic)).derive(KEY_PATH)
 var privateKey = hdkey.privateKey
 var ck = new CoinKey(privateKey, coininfo.bitcoin.test)
 

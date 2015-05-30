@@ -30,6 +30,7 @@ You can configure the faucet with the following commands:
 
 - `FAUCET_PORT`: defaults to `14004`
 - `FAUCET_WALLET`: defaults to `~/.bitcoin-faucet/wallet.json`
+- `FAUCET_MNEMONIC`: a bip39 mnemonic that uses the English wordlist
 
 
 ### Request Funds
