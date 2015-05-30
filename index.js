@@ -53,7 +53,6 @@ app.get('/withdrawal', function (req, res) {
 
 function spend(keypair, toAddress, amount, callback) {
   blockchain.addresses.unspents(address, function (err, utxos) {
-    console.log("unspends:", utxos)
     if (err) return callback(err)
 
     var balance = utxos.reduce(function (amount, unspent) {
@@ -81,12 +80,9 @@ function spend(keypair, toAddress, amount, callback) {
     })
 
     var txHex = tx.build().toHex()
-    console.log(txHex)
     blockchain.transactions.propagate(txHex, function (err, result) {
-      if (err) {
-        console.log(err)
-        return callback(err)
-      }
+      if (err) return callback(err)
+
       callback(null, result.txId)
     })
   })

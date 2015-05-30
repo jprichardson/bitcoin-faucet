@@ -29,17 +29,17 @@ outputs something like:
 You can configure the faucet with the following commands:
 
 - `FAUCET_PORT`: defaults to `14004`
-- `FAUCET_WALLET`: defaults to `~/.bitcoin-faucet/wallet.json`
-- `FAUCET_MNEMONIC`: a bip39 mnemonic that uses the English wordlist
+- `FAUCET_WALLET`: defaults to `~/.bitcoin-faucet/wallet`. It's a plain text file with the faucet private key in WIF.
+- `PRIVKEY`: the faucet private key in WIF
 
 
 ### Request Funds
 
-CURL or make browser GET request to `/withdrawal` with params `address` and optional `amount`.
+CURL or make browser GET request to `/withdrawal` with params `address` and optional `amount`. If amount not specified, 10000 satoshi is used.
 
 **Example**:
 
-    http://localhost:14004/bitcoin/testnet/withdrawal?address=msj42CCGruhRsFrGATiUuh25dtxYtnpbTx&amount=25000
+    http://localhost:14004/withdrawal?address=msj42CCGruhRsFrGATiUuh25dtxYtnpbTx&amount=25000
 
 response:
 
@@ -108,5 +108,4 @@ License
 -------
 
 MIT
-
 
