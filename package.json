@@ -4,7 +4,8 @@
   "description": "Easy Bitcoin faucet to help with testing applications.",
   "main": "index.js",
   "scripts": {
-    "test": "standard"
+    "test": "standard",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -24,15 +25,10 @@
   },
   "homepage": "https://github.com/jprichardson/bitcoin-faucet",
   "dependencies": {
-    "bip39": "^2.1.2",
+    "bitcoinjs-lib": "git://github.com/bitcoinjs/bitcoinjs-lib",
     "cb-insight": "^0.1.0",
     "chalk": "^1.0.0",
-    "coininfo": "^0.4.0",
-    "coinkey": "^1.4.0",
-    "express": "^4.12.3",
-    "fs-extra": "^0.18.2",
-    "hdkey": "^0.4.0",
-    "spend": "0.0.1"
+    "express": "^4.12.3"
   },
   "bin": {
     "bitcoin-faucet": "./index.js"
